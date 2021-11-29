@@ -1,0 +1,117 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!--link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet"-->
+
+<link rel="stylesheet" type="text/css" href="{% static '\css\profilePage.css' %}">
+
+<div class="container">
+
+<div class="profile-page tx-13">
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="profile-header">
+                <div class="cover">
+                    <div class="gray-shade"></div>
+                    <figure>
+                        <img src={{profile.cover_pic.url}} class="img-fluid" alt="profile cover" id="cover-pic">
+                    </figure>
+                    <div class="cover-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <img class="profile-pic" id="profile-pic" src={{profile.profile_pic.url}} alt="profile">
+                            <span class="profile-name">{{profile.firstname}} {{profile.lastname}}</span>
+                            
+                        </div>
+                        <div class="d-none d-md-block">
+                            <a href="" data-toggle="modal" data-target="#modalLoginForm">
+                            <button class="btn btn-success btn-icon-text btn-edit-profile">
+                                <!--input id="upload-profile" type='file'/-->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit btn-icon-prepend">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg> Change Cover / Profile Image
+                            </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Change Cover / Profile Image</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <form method="POST" action="" name="image_form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <div class="modal-body mx-3">
+                         <!--div class="input-group mb-3"> 
+                          <div class="custom-file">
+                            <input type="text" name="inputGroupFile03">
+                          </div>
+                        </div-->
+                        <div class="input-group mb-3"> 
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="inputGroupFile01" id="inputGroupFile01">
+                            <label class="custom-file-label" for="inputGroupFile01" id="label01">Change Cover Image</label>
+                          </div>
+                        </div>
+
+                        
+                        <div class="input-group mb-3">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input"  name="inputGroupFile02" id="inputGroupFile02">
+                            <label class="custom-file-label" for="inputGroupFile01" id="label02">Change Profile Image</label>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="modal-footer d-flex justify-content-center">
+                        <input type='submit' value="Save Changes" class="btn btn-success">
+                      </div>
+                    </form>  
+                    </div>
+                  </div>
+                </div>
+                <div class="header-links">
+                    <ul class="links d-flex align-items-center mt-3 mt-md-0"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{%for friend in friends%}
+    <div class="card-header">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <!-- <img class="img-xs rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt=""> -->
+                <div class="ml-2">
+                    <p style="font-size: 18px;">{{friend.to_user.firstname}} {{friend.to_user.lastname}}</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- <div class="card-body">
+        <p class="mb-3 tx-14">{{friend.description}}</p>
+
+    </div> -->
+{%endfor%}
+
+</div>
+
+<!--script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script-->
+
+<script type="text/javascript" src="{% static '\js\profilePage.js' %}"></script>
+
+
+{% endblock %}
